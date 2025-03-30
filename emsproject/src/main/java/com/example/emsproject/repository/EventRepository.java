@@ -20,5 +20,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             EventCategory category,
             LocalDateTime fromDate
     );
-
+    @Query("SELECT e FROM Event e WHERE " +
+            "(:#{#req.title} IS NULL OR LOWER(e.title) LIKE LOWER(CONCAT('%', :#{#req.title}, '%'))) AND " +
+            "(:#{#req.category} IS NULL OR e.category = :#{#req.category}) AND " +
+            "(:#{#req.fromDate} IS NULL OR e.dateTime >= :#{#req.fromDate})")
+    List<Event> searchEvents(@Param("req") EventSearchRequest request);
 }
