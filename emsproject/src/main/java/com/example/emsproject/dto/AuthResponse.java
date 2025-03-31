@@ -1,3 +1,5 @@
 package com.example.emsproject.dto;
 
-public record AuthResponse(String token) {}
+public record AuthResponse(String token) {
+
+}

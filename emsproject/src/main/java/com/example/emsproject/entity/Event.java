@@ -18,7 +18,7 @@ public class Event {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private EventCategory category;  // Conference, Workshop, etc.
+    private EventCategory category;
 
     private LocalDateTime dateTime;
     private int maxSlots;
