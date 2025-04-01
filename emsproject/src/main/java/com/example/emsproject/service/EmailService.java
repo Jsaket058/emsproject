@@ -31,7 +31,7 @@ public class EmailService {
                 "Your booking for '%s' is confirmed!\n\n" +
                         "Event Details:\n" +
                         "- Title: %s\n" +
-                        "- Manage your bookings at: http://yourapp.com/my-bookings",
+                        "- Manage your bookings at our website",
                 eventTitle, eventTitle
         ));
         mailSender.send(message);
@@ -45,7 +45,7 @@ public class EmailService {
         message.setText(String.format(
                 "Your booking for '%s' has been cancelled.\n\n" +
                         "A slot has been freed up for others to book.\n" +
-                        "View other events: http://yourapp.com/events",
+                        "View other events at our website",
                 eventTitle
         ));
         mailSender.send(message);

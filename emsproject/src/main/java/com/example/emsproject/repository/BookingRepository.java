@@ -11,4 +11,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findByEventIdAndAttendeeId(Long eventId, Long attendeeId);
     int countByEventIdAndIsCancelledFalse(Long eventId);
     Optional<Booking> findByIdAndAttendeeId(Long bookingId, Long attendeeId);
+
+    List<Booking> findByEventId(Long eventId);
 }

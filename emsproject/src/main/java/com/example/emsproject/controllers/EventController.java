@@ -6,6 +6,8 @@ import com.example.emsproject.entity.User;
 import com.example.emsproject.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,11 +42,13 @@ public class EventController {
     }
 
     @DeleteMapping("/{eventId}")
-    public void cancelEvent(
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<String> cancelEventAndBookings(
             @PathVariable Long eventId,
             @AuthenticationPrincipal User organizer
     ) {
-        eventService.cancelEvent(eventId, organizer);
+        eventService.cancelEventAndBookings(eventId, organizer);
+        return ResponseEntity.ok("Event and all associated bookings cancelled successfully");
     }
 
     @PutMapping("/{eventId}")
