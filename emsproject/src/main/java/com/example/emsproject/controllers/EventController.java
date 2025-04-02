@@ -60,18 +60,16 @@ public class EventController {
         return eventService.updateEvent(eventId, updatedEvent, organizer);
     }
     // In EventController.java
+    @GetMapping("/by-category")
+    public List<Event> getEventsByCategory(
+            @RequestParam EventCategory category) {
+        return eventService.searchByCategory(category);
+    }
+
+    // Flexible version (category optional)
     @GetMapping("/search")
     public List<Event> searchEvents(
-            @RequestParam(required = false) EventCategory category,
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-            LocalDateTime fromDate
-    ) {
-        return eventService.searchEvents(
-                EventSearchRequest.builder()
-                        .category(category)
-                        .fromDate(fromDate)
-                        .build()
-        );
+            @RequestParam(required = false) EventCategory category) {
+        return eventService.searchByCategoryNullable(category);
     }
 }

@@ -16,13 +16,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByIsCancelledFalse();
     Optional<Event> findByIdAndOrganizer(Long eventId, User organizer);
     List<Event> findByAvailableSlots(int slots);
-    List<Event> findByCategoryAndDateTimeAfter(
-            EventCategory category,
-            LocalDateTime fromDate
-    );
-    @Query("SELECT e FROM Event e WHERE " +
-            "(:#{#req.title} IS NULL OR LOWER(e.title) LIKE LOWER(CONCAT('%', :#{#req.title}, '%'))) AND " +
-            "(:#{#req.category} IS NULL OR e.category = :#{#req.category}) AND " +
-            "(:#{#req.fromDate} IS NULL OR e.dateTime >= :#{#req.fromDate})")
-    List<Event> searchEvents(@Param("req") EventSearchRequest request);
+    List<Event> findByCategory(EventCategory category);
+    @Query("SELECT e FROM Event e WHERE :category IS NULL OR e.category = :category")
+    List<Event> findByCategoryNullable(@Param("category") EventCategory category);
 }

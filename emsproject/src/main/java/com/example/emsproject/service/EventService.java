@@ -2,6 +2,7 @@ package com.example.emsproject.service;
 import com.example.emsproject.dto.EventSearchRequest;
 import com.example.emsproject.entity.Booking;
 import com.example.emsproject.entity.Event;
+import com.example.emsproject.entity.EventCategory;
 import com.example.emsproject.entity.User;
 import com.example.emsproject.exception.EventNotFoundException;
 import com.example.emsproject.repository.BookingRepository;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -87,10 +90,10 @@ public class EventService {
         eventRepository.delete(event);
     }
     // In EventService.java
-    public List<Event> searchEvents(EventSearchRequest request) {
-        return eventRepository.findByCategoryAndDateTimeAfter(
-                request.getCategory(),
-                request.getFromDate()
-        );
+    public List<Event> searchByCategory(EventCategory category) {
+        return eventRepository.findByCategory(category);
+    }
+    public List<Event> searchByCategoryNullable(EventCategory category) {
+        return eventRepository.findByCategoryNullable(category);
     }
 }
