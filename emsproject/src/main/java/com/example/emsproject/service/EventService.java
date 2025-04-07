@@ -1,5 +1,4 @@
 package com.example.emsproject.service;
-import com.example.emsproject.dto.EventSearchRequest;
 import com.example.emsproject.entity.Booking;
 import com.example.emsproject.entity.Event;
 import com.example.emsproject.entity.EventCategory;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -58,17 +56,6 @@ public class EventService {
         return eventRepository.save(existingEvent);
     }
 
-    @Scheduled(fixedRate = 30000)
-    public void closeFullyBookedEvents() {
-        eventRepository.findByAvailableSlots(0).forEach(event -> {
-            if (!event.isClosed()) {
-                event.setClosed(true);
-                eventRepository.save(event);
-                log.info("Event {} auto-closed due to full capacity", event.getId());
-            }
-        });
-    }
-
     @Transactional
     public void cancelEventAndBookings(Long eventId, User organizer) {
         Event event = eventRepository.findById(eventId)
@@ -89,7 +76,7 @@ public class EventService {
         eventRepository.save(event);
         eventRepository.delete(event);
     }
-    // In EventService.java
+
     public List<Event> searchByCategory(EventCategory category) {
         return eventRepository.findByCategory(category);
     }

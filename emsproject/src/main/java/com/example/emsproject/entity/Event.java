@@ -32,6 +32,4 @@ public class Event {
     @Column(nullable = false)
     private boolean isClosed = false;
 
-    public boolean isClosed() { return isClosed; }
-    public void setClosed(boolean closed) { isClosed = closed; }
 }

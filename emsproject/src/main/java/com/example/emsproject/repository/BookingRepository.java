@@ -8,9 +8,8 @@ import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByAttendeeId(Long attendeeId);
+
     Optional<Booking> findByEventIdAndAttendeeId(Long eventId, Long attendeeId);
-    int countByEventIdAndIsCancelledFalse(Long eventId);
-    Optional<Booking> findByIdAndAttendeeId(Long bookingId, Long attendeeId);
 
     List<Booking> findByEventId(Long eventId);
 }

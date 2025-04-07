@@ -1,17 +1,13 @@
 package com.example.emsproject.controllers;
-import com.example.emsproject.dto.EventSearchRequest;
 import com.example.emsproject.entity.Event;
 import com.example.emsproject.entity.EventCategory;
 import com.example.emsproject.entity.User;
 import com.example.emsproject.service.EventService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -59,7 +55,6 @@ public class EventController {
     ) {
         return eventService.updateEvent(eventId, updatedEvent, organizer);
     }
-    // In EventController.java
     @GetMapping("/by-category")
     public List<Event> getEventsByCategory(
             @RequestParam EventCategory category) {

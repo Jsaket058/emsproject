@@ -41,13 +41,15 @@ public class BookingService {
         eventRepository.save(event);
         emailService.sendBookingConfirmation(
                 attendee.getEmail(),
-                ""+booking.getEvent()
+                ""+booking.getEvent().getTitle()
         );
         return bookingRepository.save(booking);
     }
+
     public List<Booking> getUserBookings(Long userId) {
         return bookingRepository.findByAttendeeId(userId);
     }
+
     public void cancelBooking(Long bookingId, User attendee) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new BookingNotFoundException("Booking not found"));

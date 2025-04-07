@@ -30,8 +30,8 @@ public class EmailService {
         message.setText(String.format(
                 "Your booking for '%s' is confirmed!\n\n" +
                         "Event Details:\n" +
-                        "- Title: %s\n" +
-                        "- Manage your bookings at our website",
+                        "- Title: %s\n\n" +
+                        " Manage your bookings at our website",
                 eventTitle, eventTitle
         ));
         mailSender.send(message);
